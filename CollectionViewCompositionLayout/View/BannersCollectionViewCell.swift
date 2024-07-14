@@ -13,6 +13,10 @@ final class BannersCollectionViewCell: UICollectionViewCell, CellProtocol {
     
     lazy var imageView: UIImageView = {
        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        image.layer.cornerRadius = 20
         return image
     }()
     
@@ -25,6 +29,8 @@ final class BannersCollectionViewCell: UICollectionViewCell, CellProtocol {
     }
     
     func setupCell(item: CollectionItem) {
+        imageView.image = UIImage(named: item.image)
+        
         setupUI()
     }
     
@@ -34,7 +40,12 @@ final class BannersCollectionViewCell: UICollectionViewCell, CellProtocol {
     }
     
     private func setupConstraints() {
-        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }
 
