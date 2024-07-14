@@ -38,7 +38,7 @@ final class ViewController: UIViewController {
             switch section {
             case 0: self.createStorySection()
 //            case 1: self.createMessageSection()
-//            case 2: self.createNewsSection()
+            case 2: self.createNewsSection()
             default: self.createMessageSection()
             }
         }
@@ -84,10 +84,26 @@ final class ViewController: UIViewController {
         
         return section
     }
-//    
-//    private func createNewsSection() -> NSCollectionLayoutSection {
-//        
-//    }
+    
+    private func createNewsSection() -> NSCollectionLayoutSection {
+        // Item
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                              heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // Group
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.85),
+                                               heightDimension: .estimated(150))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 1)
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 20)
+        
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPagingCentered
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 30, bottom: 40, trailing: 30)
+        
+        return section
+    }
 //    
 //    private func createBannerSection() -> NSCollectionLayoutSection {
 //        
@@ -96,7 +112,7 @@ final class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
